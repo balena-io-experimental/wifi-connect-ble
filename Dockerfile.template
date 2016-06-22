@@ -36,6 +36,9 @@ RUN npm config set unsafe-perm true
 # Install PM2
 RUN JOBS=MAX npm i pm2 -g
 
+# Install PM2 log-rotate
+pm2 install pm2-logrotate && pm2 set pm2-logrotate:interval_unit 'DD' && pm2 set pm2-logrotate:retain 3
+
 # Move package to filesystem
 COPY ./package.json ./app/
 
