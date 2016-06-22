@@ -7,7 +7,6 @@
     const StringDecoder = require('string_decoder').StringDecoder;
     const decoder = new StringDecoder('utf8');
     const _ = require('lodash');
-    const chalk = require('chalk');
     const request = require('request');
     const isOnline = require('is-online');
     const wifivisor = process.env.WIFIVISOR_URL || 'http://127.0.0.1:3000';
@@ -24,14 +23,15 @@
     setInterval(function checkConnectivity() {
         isOnline(function(err, online) {
             if (err) {
-                console.log(chalk.red("BLE script failed isOnline check"));
+                console.error("BLE script failed isOnline check");
             } else {
                 if (!online && !advertisingToggle && poweredOn) {
-                    console.log(chalk.green('BLE advertising started'));
+                    console.log('BLE advertising started');
                     advertisingToggle = true;
                     bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['f1d460627fd34c17b0969e8d61e15583']);
                 } else {
                     bleno.stopAdvertising();
+                    console.warn('BLE advertising stopped');
                     advertisingToggle = false;
                 }
             }
@@ -39,11 +39,11 @@
     }, 180000);
 
     bleno.on('stateChange', function(state) {
-        console.log(chalk.cyan('BLE stateChange: ' + state));
+        console.log('BLE stateChange: ' + state);
         if (state === 'poweredOn') {
             poweredOn = true;
         } else {
-            console.log(chalk.yellow('BLE advertising stopped'));
+            console.log('BLE advertising stopped');
             poweredOn = false;
             advertisingToggle = false;
             bleno.stopAdvertising();
@@ -210,7 +210,7 @@
                 })
             ]);
         } else {
-            console.log(chalk.red("BLE Advertising error: ", error));
+            console.error("BLE Advertising error: ", error);
         }
     });
 
