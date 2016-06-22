@@ -1,0 +1,32 @@
+{
+    "apps": [{
+        "name": "ble",
+        "script": "ble.js",
+        "cwd": "/app/apps/",
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "merge_logs": true,
+        "exec_mode": "fork",
+        "instances": 1,
+        "watch": false,
+        "ignore_watch": ["[\\/\\\\]\\./", "node_modules"],
+        "max_memory_restart": "200M",
+        "env": {
+            "DBUS_SYSTEM_BUS_ADDRESS": "unix:path=/host_run/dbus/system_bus_socket",
+        }
+    }, {
+        "name": "wifivisor",
+        "script": "wifi.js",
+        "cwd": "/app/apps/",
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "merge_logs": true,
+        "exec_mode": "fork",
+        "instances": 1,
+        "watch": false,
+        "ignore_watch": ["[\\/\\\\]\\./", "node_modules"],
+        "max_memory_restart": "200M",
+        "env": {
+            "DBUS_SYSTEM_BUS_ADDRESS": "unix:path=/host_run/dbus/system_bus_socket",
+            "DISPLAY": ":0"
+        }
+    }]
+}

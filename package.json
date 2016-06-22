@@ -1,0 +1,38 @@
+{
+  "name": "wifi-connect-ble",
+  "version": "0.0.1",
+  "description": "A Resin.io template application that allows wifi configuration via BLE service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curcuz/wifi-connect.git"
+  },
+  "keywords": [
+    "resin",
+    "wifi",
+    "connect",
+    "connman"
+  ],
+  "author": "Carlo Maria Curinga",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/curcuz/wifi-connect/issues"
+  },
+  "jshintConfig": {
+    "esnext": true,
+    "strict": true
+  },
+  "homepage": "https://github.com/curcuz/wifi-connect#readme",
+  "dependencies": {
+    "bleno": "^0.4.0",
+    "chalk": "^1.1.3",
+    "is-online": "^5.1.1",
+    "lodash": "^4.13.1",
+    "request": "^2.72.0",
+    "resin-wifivisor": "^0.0.3",
+    "string_decoder": "^0.10.31"
+  }
+}
