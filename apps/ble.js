@@ -25,11 +25,15 @@
         isOnline(function(err, online) {
             if (err) {
                 console.log(chalk.red("BLE script failed isOnline check"));
-            }
-            if (!online && !advertisingToggle && poweredOn) {
-                console.log(chalk.green('BLE advertising started'));
-                advertisingToggle = true;
-                bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['f1d460627fd34c17b0969e8d61e15583']);
+            } else {
+                if (!online && !advertisingToggle && poweredOn) {
+                    console.log(chalk.green('BLE advertising started'));
+                    advertisingToggle = true;
+                    bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['f1d460627fd34c17b0969e8d61e15583']);
+                } else {
+                    bleno.stopAdvertising();
+                    advertisingToggle = false;
+                }
             }
         });
     }, 180000);
@@ -57,10 +61,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff1',
                             properties: ['read'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Read device resin-UUID'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Read device resin-UUID'
+                                })
                             ],
                             onReadRequest: function(offset, callback) {
                                 let result = bleno.Characteristic.RESULT_SUCCESS;
@@ -73,10 +77,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff2',
                             properties: ['read'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Get current wifi info'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Get current wifi info'
+                                })
                             ],
                             onReadRequest: function(offset, callback) {
                                 request(wifivisor + '/v1/wifi/state', function(error, response, body) {
@@ -96,10 +100,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff3',
                             properties: ['read'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Scan WiFi'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Scan WiFi'
+                                })
                             ],
                             onReadRequest: function(offset, callback) {
                                 request(wifivisor + '/v1/wifi/', function(error, response, body) {
@@ -119,10 +123,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff4',
                             properties: ['write'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Set SSID for connection'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Set SSID for connection'
+                                })
                             ],
                             onWriteRequest: function(data, offset, withoutResponse, callback) {
                                 if (offset) {
@@ -138,10 +142,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff5',
                             properties: ['write'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Set PSK for connection'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Set PSK for connection'
+                                })
                             ],
                             onWriteRequest: function(data, offset, withoutResponse, callback) {
                                 if (offset) {
@@ -157,10 +161,10 @@
                             uuid: 'fffffffffffffffffffffffffffffff6',
                             properties: ['write'],
                             descriptors: [
-                              new bleno.Descriptor({
-                                uuid: '2901',
-                                value: 'Apply WiFi connection'
-                              })
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Apply WiFi connection'
+                                })
                             ],
                             onWriteRequest: function(data, offset, withoutResponse, callback) {
                                 if (offset) {
