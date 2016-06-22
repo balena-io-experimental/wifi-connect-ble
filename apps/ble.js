@@ -156,7 +156,7 @@
                                 callback(result);
                             }
                         }),
-                        // Apply wifi config
+                        // Apply wifi config and connect
                         new bleno.Characteristic({
                             uuid: 'fffffffffffffffffffffffffffffff6',
                             properties: ['write'],
@@ -171,6 +171,31 @@
                                     callback(this.RESULT_ATTR_NOT_LONG);
                                 }
                                 request.post(wifivisor + '/v1/wifi/' + wifiConfig.ssid + '/' + wifiConfig.psk, function(error, response, body) {
+                                    if (!error && response.statusCode == 200) {
+                                        let result = bleno.Characteristic.RESULT_SUCCESS;
+                                        callback(result);
+                                    } else {
+                                        let result = bleno.Characteristic.RESULT_UNLIKELY_ERROR;
+                                        callback(result);
+                                    }
+                                });
+                            }
+                        })
+                        // disconnect from WiFi current config if any
+                        new bleno.Characteristic({
+                            uuid: 'fffffffffffffffffffffffffffffff7',
+                            properties: ['write'],
+                            descriptors: [
+                                new bleno.Descriptor({
+                                    uuid: '2901',
+                                    value: 'Cancel WiFi connection'
+                                })
+                            ],
+                            onWriteRequest: function(data, offset, withoutResponse, callback) {
+                                if (offset) {
+                                    callback(this.RESULT_ATTR_NOT_LONG);
+                                }
+                                request.delete(wifivisor + '/v1/wifi/', function(error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         let result = bleno.Characteristic.RESULT_SUCCESS;
                                         callback(result);
