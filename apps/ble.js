@@ -180,7 +180,7 @@
                                     }
                                 });
                             }
-                        })
+                        }),
                         // disconnect from WiFi current config if any
                         new bleno.Characteristic({
                             uuid: 'fffffffffffffffffffffffffffffff7',
