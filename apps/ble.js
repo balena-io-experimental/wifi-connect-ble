@@ -29,7 +29,7 @@
                     console.log('BLE advertising started');
                     advertisingToggle = true;
                     bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['f1d460627fd34c17b0969e8d61e15583']);
-                } else {
+                } else if (advertisingToggle  && poweredOn) {
                     bleno.stopAdvertising();
                     console.warn('BLE advertising stopped');
                     advertisingToggle = false;
