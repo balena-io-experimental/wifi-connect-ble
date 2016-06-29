@@ -2,7 +2,6 @@
 
 (function() {
     'use strict';
-
     const bleno = require('bleno');
     const StringDecoder = require('string_decoder').StringDecoder;
     const decoder = new StringDecoder('utf8');
@@ -18,7 +17,6 @@
         ssid: "",
         psk: ""
     };
-
     // check each 3 minutes id device is connected - if not, spawn BLE service
     setInterval(function checkConnectivity() {
         isOnline(function(err, online) {
@@ -28,7 +26,7 @@
                 if (!online && !advertisingToggle && poweredOn) {
                     console.log('BLE advertising started');
                     advertisingToggle = true;
-                    bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['f1d460627fd34c17b0969e8d61e15583']);
+                    bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['F1D46062-7FD3-4C17-B096-9E8D61E15583']);
                 } else if (advertisingToggle  && poweredOn) {
                     bleno.stopAdvertising();
                     console.warn('BLE advertising stopped');
@@ -54,11 +52,11 @@
         if (!error) {
             bleno.setServices([
                 new bleno.PrimaryService({
-                    uuid: 'f1d460627fd34c17b0969e8d61e15583',
+                    uuid: 'F1D46062-7FD3-4C17-B096-9E8D61E15583',
                     characteristics: [
                         // Read device resin-UUID
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff1',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF1',
                             properties: ['read'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -74,7 +72,7 @@
                         }),
                         // Get current wifi connection info, if any
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff2',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF2',
                             properties: ['read'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -97,7 +95,7 @@
                         }),
                         // Get a list of wifi networks found by device
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff3',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF3',
                             properties: ['read'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -120,7 +118,7 @@
                         }),
                         // Store SSID for upcoming wifi config
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff4',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF4',
                             properties: ['write'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -139,7 +137,7 @@
                         }),
                         // Store PSK for upcoming wifi config
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff5',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF5',
                             properties: ['write'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -158,7 +156,7 @@
                         }),
                         // Apply wifi config and connect
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff6',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF6',
                             properties: ['write'],
                             descriptors: [
                                 new bleno.Descriptor({
@@ -183,7 +181,7 @@
                         }),
                         // disconnect from WiFi current config if any
                         new bleno.Characteristic({
-                            uuid: 'fffffffffffffffffffffffffffffff7',
+                            uuid: 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFF7',
                             properties: ['write'],
                             descriptors: [
                                 new bleno.Descriptor({
