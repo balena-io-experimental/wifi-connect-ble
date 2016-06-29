@@ -27,10 +27,6 @@
                     console.log('BLE advertising started');
                     advertisingToggle = true;
                     bleno.startAdvertising("resin-" + process.env.RESIN_DEVICE_UUID.substr(0, 7), ['F1D46062-7FD3-4C17-B096-9E8D61E15583']);
-                } else if (advertisingToggle  && poweredOn) {
-                    bleno.stopAdvertising();
-                    console.warn('BLE advertising stopped');
-                    advertisingToggle = false;
                 }
             }
         });
@@ -174,6 +170,9 @@
                                         callback(result);
                                     } else {
                                         let result = bleno.Characteristic.RESULT_UNLIKELY_ERROR;
+                                        bleno.stopAdvertising();
+                                        console.warn('BLE advertising stopped');
+                                        advertisingToggle = false;
                                         callback(result);
                                     }
                                 });
