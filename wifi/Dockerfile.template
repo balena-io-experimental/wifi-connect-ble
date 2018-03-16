@@ -1,0 +1,22 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-node:8-slim
+
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app
+COPY ./app/package.json ./
+
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+  build-essential \
+  git \
+  curl \
+  && JOBS=MAX npm install --unsafe-perm --production && npm cache clean --force && rm -rf /tmp/* \
+  && apt-get purge -y build-essential git curl \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Move app to filesystem
+COPY ./app ./
+
+## Uncomment if you want systemd
+ENV INITSYSTEM on
+
+# Start app
+CMD ["bash", "/usr/src/app/start.sh"]

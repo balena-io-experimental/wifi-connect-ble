@@ -1,6 +1,6 @@
 {
-  "name": "wifi-connect-ble",
-  "version": "0.0.4",
+  "name": "wifi-connect-ble-wifi",
+  "version": "2.0.0-beta1",
   "description": "A Resin.io template application that allows wifi configuration via BLE service",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,9 @@
     "resin",
     "wifi",
     "connect",
-    "connman"
+    "NetworkManager",
+    "network",
+    "manager"
   ],
   "author": "Carlo Maria Curinga",
   "license": "Apache-2.0",
@@ -27,11 +29,7 @@
   },
   "homepage": "https://github.com/curcuz/wifi-connect#readme",
   "dependencies": {
-    "bleno": "^0.4.0",
-    "is-online": "^5.1.1",
-    "lodash": "^4.13.1",
-    "request": "^2.72.0",
-    "resin-wifivisor": "^0.0.3",
-    "string_decoder": "^0.10.31"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
   }
 }
