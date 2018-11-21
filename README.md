@@ -1,6 +1,6 @@
 # wifi-connect-ble
 
-**WARNING: this application is only compatible with resinOS 1.x**
+**WARNING: this application is only compatible with balenaOS 1.x**
 
 A Resin.io template application that allows wifi configuration via BLE service.
 Currently, it contains specifics for `raspberrypi 3 model B` but the aim is to make it portable as much as possible
